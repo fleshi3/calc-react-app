@@ -19,15 +19,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value1: '',
-      value2: '',
+      value1: 0,
+      value2: 0,
       mod: '',
       calcValue: 0,
     };
-    this.handleNumber = this.handleNumber.bind(this);
   }
   render() {
-    const {calcValue, value1} = this.state;
+    const {calcValue, value1, value2} = this.state;
     const {handleMod, handleNumber, evalCalc} = this;
     return (
       <div className="App">
@@ -35,7 +34,11 @@ class App extends Component {
           <p>{calcValue}</p>
         </div>
         <div className="calc row1">
-          <button value="+" onClick={e => handleMod(e, calcValue)}>
+          <button
+            value="+"
+            onClick={(e, value1, value2, mod) =>
+              handleMod(e, value1, value2, mod)
+            }>
             +
           </button>
           <button value="-" onClick={e => handleMod(e, calcValue)}>
@@ -98,6 +101,7 @@ class App extends Component {
     this.setState({
       calcValue: 0,
       value1: 0,
+      value2: 0,
       mod: '',
     });
   };
@@ -112,46 +116,62 @@ class App extends Component {
       }
       return e.target.value;
     };
+    const valueY = (e, value1) => {
+      if (value1 === 0) {
+        return 0;
+      }
+      return e.target.value;
+    };
+    const valueOnce = (e, value1) => {
+      if (value1 !== 0) {
+        return value1;
+      } else if (value1 === 0) {
+        return e.target.value;
+      }
+      return e.target.value;
+    };
     this.setState({
       calcValue: Math.trunc(valueX(calcValue, e)),
+      value1: Math.trunc(valueOnce(e, value1)),
+      value2: Math.trunc(valueY(e, value1)),
     });
   };
 
   handleMod = (e, state) => {
-    const {value1, value2, calcValue, mod} = this.state;
-    const resultMod = (value1, calcValue, mod) => {
-      if (value1 !== 0) {
-        switch (mod) {
-          case '+':
-            return add(value1, calcValue);
-          case '-':
-            return subtract(value1, calcValue);
-          case '*':
-            return multiply(value1, calcValue);
-          case '/':
-            return divide(value1, calcValue);
-        }
-        return calcValue;
+    const {value2, mod, value1} = this.state;
+    console.log(value1);
+    const resultMod = () => {
+      if (value2 === 0) {
+        return value1;
+      }
+      switch (mod) {
+        case '+':
+          return add(value1, value2);
+        case '-':
+          return subtract(value1, value2);
+        case '*':
+          return multiply(value1, value2);
+        case '/':
+          return divide(value1, value2);
       }
     };
 
     this.setState({
       mod: e.target.value,
-      value1: resultMod(value1, calcValue, mod),
-            //calcValue: resultMod(value1, calcValue, mod),
+      value1: resultMod(value2, mod, value1),
+      calcValue: resultMod(value2, mod, value1),
+      //calcValue: resultMod(value1, calcValue, mod),
       // value1: Math.trunc(calcValue),
-       calcValue: '',
     });
-    console.log(this.state.mod);
   };
 
   evalCalc = state => {
     const {value1, value2, calcValue, mod} = this.state;
     // const result = add(value1, calcValue);
-    const result = (value1, calcValue, mod) => {
+    const result = (value1, value2, mod) => {
       switch (mod) {
         case '+':
-          return add(value1, calcValue);
+          return add(value1, value2);
         case '-':
           return subtract(value1, calcValue);
         case '*':
@@ -162,7 +182,9 @@ class App extends Component {
     };
     console.log(result);
     this.setState({
-      calcValue: result(value1, calcValue, mod),
+      calcValue: result(value1, value2, mod),
+      value1: result(value1, value2, mod),
+      value2: 0,
     });
   };
 }
