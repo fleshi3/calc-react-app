@@ -1,24 +1,23 @@
 * {
-  font-family: 'arial', sans-serif;
+  font-family: 'Press Start 2P', cursive;
+  color: #ebdbb2;
   margin: 0;
   padding: 0;
 }
 
 html {
-  background: #121212;
+  background: lighten(#1d2021, 30);
 }
 
 .App {
-  background: #282828;
-  position: absolute;
-  top: 25vh;
-  width: 100%;
-  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  background: lighten(#1d2021, 30);
+  position: relative;
   text-align: center;
-  margin: 0;
-  padding: 0;
   color: white;
   font-size: 28px;
+  box-sizing: border-box;
   button {
     text: center;
     align-content: center;
@@ -27,15 +26,31 @@ html {
 }
 
 .calcValue {
-  height: 50px;
-  line-height: 50px;
+  height: 75px;
+  background: #1d2021;
+  line-height: 75px;
   text-align: center;
+  color: #b8bb26;
+  border: #ebdbb2 2px solid;
+}
+
+.calcContainer {
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  margin: auto;
+  margin-top: 0;
+  border: #ebdbb2 2px solid;
+  position: relative;
+  z-index: 2;
+  top: 25vh;
 }
 
 .calc {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin: 10px;
+  width: 300px;
   &.row1 {
     background: #121212;
     justify-content: center;
@@ -63,5 +78,144 @@ html {
   button {
     height: 75px;
     font-size: 26px;
+    border: #ebdbb2 2px solid;
+    background: #1d2021;
+    &:hover {
+      background: lighten(#1d2021, 5);
+    }
+    &:active {
+      color: #98971a;
+    }
   }
+}
+
+.Background {
+  position: absolute;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100vh;
+  width: 100%;
+  z-index: 0;
+  background: transparent;
+  .color1 {
+    background: #1d2021;
+    height: 140px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 99;
+  }
+  .color2 {
+    background: lighten(#1d2021, 5);
+    height: 140px;
+    width: 100%;
+    position: fixed;
+    bottom: 140px;
+    z-index: 99;
+  }
+  .color3 {
+    background: lighten(#1d2021, 10);
+    height: 140px;
+    width: 100%;
+    position: fixed;
+    bottom: 280px;
+    z-index: 99;
+  }
+  .color4 {
+    background: lighten(#1d2021, 15);
+    height: 140px;
+    width: 100%;
+    position: fixed;
+    bottom: 420px;
+    z-index: 99;
+  }
+  .color5 {
+    background: lighten(#1d2021, 20);
+    height: 140px;
+    width: 100%;
+    position: fixed;
+    bottom: 560px;
+    z-index: 99;
+  }
+  .color6 {
+    background: lighten(#1d2021, 25);
+    height: 140px;
+    width: 100%;
+    position: fixed;
+    bottom: 700px;
+    z-index: 99;
+  }
+  .color7 {
+    background: lighten(#1d2021, 30);
+    height: 140px;
+    width: 100%;
+    position: fixed;
+    bottom: 840px;
+    z-index: 99;
+    span {
+      line-height: 200px;
+      display: inline-block;
+      animation: wavey 2s infinite;
+      color: lime;
+      text-shadow: 1px 1px 5px cyan;
+      font-size: 36px;
+    }
+  }
+}
+
+@keyframes wavey {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-30px);
+    color: cyan;
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+// staggering
+.color7 span:nth-child(1) {
+  animation-delay: 0s;
+}
+.color7 span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.color7 span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.color7 span:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.color7 span:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.color7 span:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.color7 span:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.color7 span:nth-child(8) {
+  animation-delay: .7s;
+}
+.color7 span:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.color7 span:nth-child(10) {
+  animation-delay: 0.9s;
+}
+.color7 span:nth-child(11) {
+  animation-delay: 1s;
+}
+.color7 span:nth-child(12) {
+  animation-delay: 1.1s;
+}
+.color7 span:nth-child(13) {
+  animation-delay: 1.2s;
+}
+.color7 span:nth-child(14) {
+  animation-delay: 1.3s;
 }
